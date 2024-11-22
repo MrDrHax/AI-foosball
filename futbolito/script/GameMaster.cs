@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 
@@ -74,12 +75,13 @@ public partial class GameMaster : Node
 		var matrix1_2 = player1.getOtherMatrix(player2.characters);
 		var matrix1_3 = new float[][] { new float[] { ball.getX(true), ball.getZ(true) }, new float[] { ball.getXSpeed(true), ball.getZSpeed(true) } };
 
-		player1Actions_1.Add(matrix1_1);
-		player1Actions_2.Add(matrix1_2);
-		player1Actions_3.Add(matrix1_3);
-
 		// create json
-		string toSend = JsonSerializer.Serialize(new float[][][] { matrix1_1, matrix1_2, matrix1_3 });
+		string toSend = JsonSerializer.Serialize(
+			new Dictionary<string, object>() {
+				{ "data", new float[][][] { matrix1_1, matrix1_2, matrix1_3 } },
+				{ "reward", reward1V },
+			}
+		);
 
 		// TODO send data
 		string response = "[[0,0], [0,0], [0,0], [0,0]]";

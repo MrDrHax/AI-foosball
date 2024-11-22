@@ -40,7 +40,7 @@ public partial class BallInit : Node3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		if (physicsBody3D.LinearVelocity.Length() <= 0.0001)
+		if (physicsBody3D.LinearVelocity.Length() <= 0.001)
 		{
 			resetBall();
 			penalized = true;
