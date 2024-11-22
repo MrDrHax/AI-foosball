@@ -1,0 +1,1178 @@
+[gd_scene load_steps=25 format=3 uid="uid://p0x514pltcgb"]
+
+[ext_resource type="Script" path="res://script/BallInit.cs" id="1_3ouj3"]
+[ext_resource type="Script" path="res://script/GameMaster.cs" id="1_l0nc5"]
+[ext_resource type="Script" path="res://script/CharController.cs" id="1_lhch3"]
+[ext_resource type="Script" path="res://script/TurnMannager.cs" id="2_l5jtr"]
+[ext_resource type="BoxMesh" uid="uid://iw5va2nsmhhp" path="res://meshes/bluy.tres" id="4_7sd0i"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1atsq"]
+friction = 0.8
+bounce = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ths7s"]
+size = Vector3(1.2, 0.1, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lx6t0"]
+albedo_color = Color(0.270235, 0.511753, 0.204202, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_caolb"]
+material = SubResource("StandardMaterial3D_lx6t0")
+size = Vector3(1.2, 0.1, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywdm1"]
+albedo_color = Color(0.388815, 0.251641, 0.0815951, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_leweu"]
+material = SubResource("StandardMaterial3D_ywdm1")
+size = Vector3(1.2, 0.1, 0.7)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ceom4"]
+absorbent = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jj3qh"]
+radius = 0.015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2g5e3"]
+albedo_color = Color(0.764363, 0.406221, 0.945322, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_csxud"]
+material = SubResource("StandardMaterial3D_2g5e3")
+radius = 0.015
+height = 0.03
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3ytpm"]
+friction = 5.0
+bounce = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1umh"]
+albedo_color = Color(0.461755, 0.539989, 0.612817, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mmm5p"]
+material = SubResource("StandardMaterial3D_w1umh")
+top_radius = 0.005
+bottom_radius = 0.005
+height = 0.7
+radial_segments = 4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0okir"]
+size = Vector3(0.01, 0.02, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m07o8"]
+albedo_color = Color(1, 0.239216, 0.227451, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_frigo"]
+material = SubResource("StandardMaterial3D_m07o8")
+size = Vector3(0.01, 0.1, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t2ibr"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m6h5p"]
+material = SubResource("StandardMaterial3D_t2ibr")
+size = Vector3(0.015, 0.01, 0.05)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_njgc7"]
+height = 0.02
+radius = 0.01
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("player1", "player2", "ball", "reward1", "reward2")]
+script = ExtResource("1_l0nc5")
+player1 = NodePath("player1")
+player2 = NodePath("player2")
+ball = NodePath("ball")
+reward1 = NodePath("CanvasLayer/Player1/Reward/Value")
+reward2 = NodePath("CanvasLayer/Player2/Reward/Value")
+
+[node name="field" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="field"]
+disable_mode = 1
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_1atsq")
+sleeping = true
+lock_rotation = true
+freeze = true
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="field/RigidBody3D"]
+shape = SubResource("BoxShape3D_ths7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="field/RigidBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_caolb")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="field/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.227573, -0.410388)
+shape = SubResource("BoxShape3D_ths7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="field/RigidBody3D/CollisionShape3D2"]
+mesh = SubResource("BoxMesh_leweu")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="field/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.228, 0.41)
+shape = SubResource("BoxShape3D_ths7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="field/RigidBody3D/CollisionShape3D3"]
+mesh = SubResource("BoxMesh_leweu")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="field/RigidBody3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.65, -0.475, 0)
+shape = SubResource("BoxShape3D_ths7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="field/RigidBody3D/CollisionShape3D4"]
+mesh = SubResource("BoxMesh_leweu")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="field/RigidBody3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.65, -0.475, 0)
+shape = SubResource("BoxShape3D_ths7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="field/RigidBody3D/CollisionShape3D5"]
+mesh = SubResource("BoxMesh_leweu")
+skeleton = NodePath("../../../..")
+
+[node name="ball" type="Node3D" parent="." node_paths=PackedStringArray("physicsBody3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+script = ExtResource("1_3ouj3")
+physicsBody3D = NodePath("RigidBody3D")
+initialPush = Vector3(1, 0, 1)
+initialPushMultiplier = 0.5
+
+[node name="RigidBody3D" type="RigidBody3D" parent="ball"]
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_ceom4")
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ball/RigidBody3D"]
+shape = SubResource("SphereShape3D_jj3qh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ball/RigidBody3D/CollisionShape3D"]
+mesh = SubResource("SphereMesh_csxud")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.713776, 0.700374, 0, -0.700374, 0.713776, 0, 0.767789, 0.702159)
+fov = 75.1594
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.58093, 0.813953, 0, -0.813953, 0.58093, 0, 0.598345, 1.53577)
+
+[node name="player1" type="Node3D" parent="." node_paths=PackedStringArray("characters", "currentMovement_1", "currentRotation_1", "currentMovement_2", "currentRotation_2", "currentMovement_3", "currentRotation_3", "currentMovement_4", "currentRotation_4")]
+script = ExtResource("2_l5jtr")
+characters = [NodePath("goalie"), NodePath("defense"), NodePath("mid"), NodePath("upper")]
+player1 = true
+currentMovement_1 = NodePath("../CanvasLayer/Player1/Stats1/DP/value")
+currentRotation_1 = NodePath("../CanvasLayer/Player1/Stats1/DR/value")
+currentMovement_2 = NodePath("../CanvasLayer/Player1/Stats2/DP/value")
+currentRotation_2 = NodePath("../CanvasLayer/Player1/Stats2/DR/value")
+currentMovement_3 = NodePath("../CanvasLayer/Player1/Stats3/DP/value")
+currentRotation_3 = NodePath("../CanvasLayer/Player1/Stats3/DR/value")
+currentMovement_4 = NodePath("../CanvasLayer/Player1/Stats4/DP/value")
+currentRotation_4 = NodePath("../CanvasLayer/Player1/Stats4/DR/value")
+
+[node name="goalie" type="Node3D" parent="player1" node_paths=PackedStringArray("physicsBody3D", "rotation", "position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.523478, 0, 0)
+script = ExtResource("1_lhch3")
+physicsBody3D = NodePath("RigidBody3D")
+torque = 5.0
+movement = 50.0
+rotation = NodePath("../../CanvasLayer/Player1/Stats1/R/value")
+position = NodePath("../../CanvasLayer/Player1/Stats1/P/value")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="player1/goalie"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3ytpm")
+gravity_scale = 0.0
+center_of_mass_mode = 1
+continuous_cd = true
+angular_damp_mode = 1
+angular_damp = 10.0
+
+[node name="stick" type="MeshInstance3D" parent="player1/goalie/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mmm5p")
+
+[node name="Dude" type="CollisionShape3D" parent="player1/goalie/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/goalie/RigidBody3D/Dude"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/goalie/RigidBody3D/Dude"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Stopper" type="CollisionShape3D" parent="player1/goalie/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.172807)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="Stopper2" type="CollisionShape3D" parent="player1/goalie/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.154565)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="defense" type="Node3D" parent="player1" node_paths=PackedStringArray("physicsBody3D", "rotation", "position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.391775, 0, 0)
+script = ExtResource("1_lhch3")
+physicsBody3D = NodePath("RigidBody3D")
+torque = 5.0
+movement = 50.0
+rotation = NodePath("../../CanvasLayer/Player1/Stats2/R/value")
+position = NodePath("../../CanvasLayer/Player1/Stats2/P/value")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="player1/defense"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3ytpm")
+gravity_scale = 0.0
+center_of_mass_mode = 1
+continuous_cd = true
+angular_damp_mode = 1
+angular_damp = 10.0
+
+[node name="stick" type="MeshInstance3D" parent="player1/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mmm5p")
+
+[node name="Dude" type="CollisionShape3D" parent="player1/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.0973023)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/defense/RigidBody3D/Dude"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/defense/RigidBody3D/Dude"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude2" type="CollisionShape3D" parent="player1/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.123517)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/defense/RigidBody3D/Dude2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/defense/RigidBody3D/Dude2"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Stopper" type="CollisionShape3D" parent="player1/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.228736)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="Stopper2" type="CollisionShape3D" parent="player1/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.206589)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="mid" type="Node3D" parent="player1" node_paths=PackedStringArray("physicsBody3D", "rotation", "position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0921618, 0, 0)
+script = ExtResource("1_lhch3")
+physicsBody3D = NodePath("RigidBody3D")
+torque = 5.0
+movement = 50.0
+rotation = NodePath("../../CanvasLayer/Player1/Stats3/R/value")
+position = NodePath("../../CanvasLayer/Player1/Stats3/P/value")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="player1/mid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3ytpm")
+gravity_scale = 0.0
+center_of_mass_mode = 1
+continuous_cd = true
+angular_damp_mode = 1
+angular_damp = 10.0
+
+[node name="stick" type="MeshInstance3D" parent="player1/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mmm5p")
+
+[node name="Dude" type="CollisionShape3D" parent="player1/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.207465)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/mid/RigidBody3D/Dude"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/mid/RigidBody3D/Dude"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude2" type="CollisionShape3D" parent="player1/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.0629061)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/mid/RigidBody3D/Dude2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/mid/RigidBody3D/Dude2"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude3" type="CollisionShape3D" parent="player1/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.0682637)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/mid/RigidBody3D/Dude3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/mid/RigidBody3D/Dude3"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude4" type="CollisionShape3D" parent="player1/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.213424)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/mid/RigidBody3D/Dude4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/mid/RigidBody3D/Dude4"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Stopper" type="CollisionShape3D" parent="player1/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.266877)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="Stopper2" type="CollisionShape3D" parent="player1/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.261427)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="upper" type="Node3D" parent="player1" node_paths=PackedStringArray("physicsBody3D", "rotation", "position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.242647, 0, 0)
+script = ExtResource("1_lhch3")
+physicsBody3D = NodePath("RigidBody3D")
+torque = 5.0
+movement = 50.0
+rotation = NodePath("../../CanvasLayer/Player1/Stats4/R/value")
+position = NodePath("../../CanvasLayer/Player1/Stats4/P/value")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="player1/upper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3ytpm")
+gravity_scale = 0.0
+center_of_mass_mode = 1
+continuous_cd = true
+angular_damp_mode = 1
+angular_damp = 10.0
+
+[node name="stick" type="MeshInstance3D" parent="player1/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mmm5p")
+
+[node name="Dude" type="CollisionShape3D" parent="player1/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.207465)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/upper/RigidBody3D/Dude"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/upper/RigidBody3D/Dude"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude2" type="CollisionShape3D" parent="player1/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.0629061)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/upper/RigidBody3D/Dude2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/upper/RigidBody3D/Dude2"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude3" type="CollisionShape3D" parent="player1/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.0682637)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/upper/RigidBody3D/Dude3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/upper/RigidBody3D/Dude3"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude4" type="CollisionShape3D" parent="player1/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.213424)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player1/upper/RigidBody3D/Dude4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_frigo")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player1/upper/RigidBody3D/Dude4"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Stopper" type="CollisionShape3D" parent="player1/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.266877)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="Stopper2" type="CollisionShape3D" parent="player1/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.261427)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="player2" type="Node3D" parent="." node_paths=PackedStringArray("characters", "currentMovement_1", "currentRotation_1", "currentMovement_2", "currentRotation_2", "currentMovement_3", "currentRotation_3", "currentMovement_4", "currentRotation_4")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("2_l5jtr")
+characters = [NodePath("goalie"), NodePath("defense"), NodePath("mid"), NodePath("upper")]
+currentMovement_1 = NodePath("../CanvasLayer/Player2/Stats1/DP/value")
+currentRotation_1 = NodePath("../CanvasLayer/Player2/Stats1/DR/value")
+currentMovement_2 = NodePath("../CanvasLayer/Player2/Stats2/DP/value")
+currentRotation_2 = NodePath("../CanvasLayer/Player2/Stats2/DR/value")
+currentMovement_3 = NodePath("../CanvasLayer/Player2/Stats3/R/value")
+currentRotation_3 = NodePath("../CanvasLayer/Player2/Stats3/DR/value")
+currentMovement_4 = NodePath("../CanvasLayer/Player2/Stats4/DP/value")
+currentRotation_4 = NodePath("../CanvasLayer/Player2/Stats4/DR/value")
+
+[node name="goalie" type="Node3D" parent="player2" node_paths=PackedStringArray("physicsBody3D", "rotation", "position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.523478, 0, 0)
+script = ExtResource("1_lhch3")
+physicsBody3D = NodePath("RigidBody3D")
+torque = 5.0
+movement = 50.0
+rotation = NodePath("../../CanvasLayer/Player2/Stats1/R/value")
+position = NodePath("../../CanvasLayer/Player2/Stats1/P/value")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="player2/goalie"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3ytpm")
+gravity_scale = 0.0
+center_of_mass_mode = 1
+continuous_cd = true
+angular_damp_mode = 1
+angular_damp = 10.0
+
+[node name="stick" type="MeshInstance3D" parent="player2/goalie/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mmm5p")
+
+[node name="Dude" type="CollisionShape3D" parent="player2/goalie/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/goalie/RigidBody3D/Dude"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/goalie/RigidBody3D/Dude"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Stopper" type="CollisionShape3D" parent="player2/goalie/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.172807)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="Stopper2" type="CollisionShape3D" parent="player2/goalie/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.154565)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="defense" type="Node3D" parent="player2" node_paths=PackedStringArray("physicsBody3D", "rotation", "position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.391775, 0, 0)
+script = ExtResource("1_lhch3")
+physicsBody3D = NodePath("RigidBody3D")
+torque = 5.0
+movement = 50.0
+rotation = NodePath("../../CanvasLayer/Player2/Stats2/R/value")
+position = NodePath("../../CanvasLayer/Player2/Stats2/P/value")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="player2/defense"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3ytpm")
+gravity_scale = 0.0
+center_of_mass_mode = 1
+continuous_cd = true
+angular_damp_mode = 1
+angular_damp = 10.0
+
+[node name="stick" type="MeshInstance3D" parent="player2/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mmm5p")
+
+[node name="Dude" type="CollisionShape3D" parent="player2/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.0973023)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/defense/RigidBody3D/Dude"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/defense/RigidBody3D/Dude"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude2" type="CollisionShape3D" parent="player2/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.123517)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/defense/RigidBody3D/Dude2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/defense/RigidBody3D/Dude2"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Stopper" type="CollisionShape3D" parent="player2/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.228736)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="Stopper2" type="CollisionShape3D" parent="player2/defense/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.206589)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="mid" type="Node3D" parent="player2" node_paths=PackedStringArray("physicsBody3D", "rotation", "position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0921618, 0, 0)
+script = ExtResource("1_lhch3")
+physicsBody3D = NodePath("RigidBody3D")
+torque = 5.0
+movement = 50.0
+rotation = NodePath("../../CanvasLayer/Player2/Stats3/R/value")
+position = NodePath("../../CanvasLayer/Player2/Stats3/P/value")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="player2/mid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3ytpm")
+gravity_scale = 0.0
+center_of_mass_mode = 1
+continuous_cd = true
+angular_damp_mode = 1
+angular_damp = 10.0
+
+[node name="stick" type="MeshInstance3D" parent="player2/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mmm5p")
+
+[node name="Dude" type="CollisionShape3D" parent="player2/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.207465)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/mid/RigidBody3D/Dude"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/mid/RigidBody3D/Dude"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude2" type="CollisionShape3D" parent="player2/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.0629061)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/mid/RigidBody3D/Dude2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/mid/RigidBody3D/Dude2"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude3" type="CollisionShape3D" parent="player2/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.0682637)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/mid/RigidBody3D/Dude3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/mid/RigidBody3D/Dude3"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude4" type="CollisionShape3D" parent="player2/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.213424)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/mid/RigidBody3D/Dude4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/mid/RigidBody3D/Dude4"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Stopper" type="CollisionShape3D" parent="player2/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.266877)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="Stopper2" type="CollisionShape3D" parent="player2/mid/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.261427)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="upper" type="Node3D" parent="player2" node_paths=PackedStringArray("physicsBody3D", "rotation", "position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.242647, 0, 0)
+script = ExtResource("1_lhch3")
+physicsBody3D = NodePath("RigidBody3D")
+torque = 5.0
+movement = 50.0
+rotation = NodePath("../../CanvasLayer/Player2/Stats4/R/value")
+position = NodePath("../../CanvasLayer/Player2/Stats4/P/value")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="player2/upper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3ytpm")
+gravity_scale = 0.0
+center_of_mass_mode = 1
+continuous_cd = true
+angular_damp_mode = 1
+angular_damp = 10.0
+
+[node name="stick" type="MeshInstance3D" parent="player2/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mmm5p")
+
+[node name="Dude" type="CollisionShape3D" parent="player2/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.207465)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/upper/RigidBody3D/Dude"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/upper/RigidBody3D/Dude"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude2" type="CollisionShape3D" parent="player2/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.0629061)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/upper/RigidBody3D/Dude2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/upper/RigidBody3D/Dude2"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude3" type="CollisionShape3D" parent="player2/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.0682637)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/upper/RigidBody3D/Dude3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/upper/RigidBody3D/Dude3"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Dude4" type="CollisionShape3D" parent="player2/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.213424)
+shape = SubResource("BoxShape3D_0okir")
+
+[node name="Dude mesh" type="MeshInstance3D" parent="player2/upper/RigidBody3D/Dude4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("4_7sd0i")
+skeleton = NodePath("../..")
+
+[node name="feet" type="MeshInstance3D" parent="player2/upper/RigidBody3D/Dude4"]
+mesh = SubResource("BoxMesh_m6h5p")
+
+[node name="Stopper" type="CollisionShape3D" parent="player2/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.266877)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="Stopper2" type="CollisionShape3D" parent="player2/upper/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.261427)
+shape = SubResource("CylinderShape3D_njgc7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Player1" type="Node2D" parent="CanvasLayer"]
+position = Vector2(684, 3)
+
+[node name="Stats1" type="Node2D" parent="CanvasLayer/Player1"]
+
+[node name="DR" type="Label" parent="CanvasLayer/Player1/Stats1"]
+offset_right = 127.0
+offset_bottom = 23.0
+text = "Desired rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats1/DR"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="DP" type="Label" parent="CanvasLayer/Player1/Stats1"]
+offset_left = 288.0
+offset_right = 415.0
+offset_bottom = 23.0
+text = "Desired pos"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats1/DP"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="R" type="Label" parent="CanvasLayer/Player1/Stats1"]
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats1/R"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="P" type="Label" parent="CanvasLayer/Player1/Stats1"]
+offset_left = 290.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 48.0
+text = "Position"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats1/P"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Stats2" type="Node2D" parent="CanvasLayer/Player1"]
+position = Vector2(1, 69)
+
+[node name="DR" type="Label" parent="CanvasLayer/Player1/Stats2"]
+offset_right = 127.0
+offset_bottom = 23.0
+text = "Desired rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats2/DR"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="DP" type="Label" parent="CanvasLayer/Player1/Stats2"]
+offset_left = 288.0
+offset_right = 415.0
+offset_bottom = 23.0
+text = "Desired pos"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats2/DP"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="R" type="Label" parent="CanvasLayer/Player1/Stats2"]
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats2/R"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="P" type="Label" parent="CanvasLayer/Player1/Stats2"]
+offset_left = 290.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 48.0
+text = "Position"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats2/P"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Stats3" type="Node2D" parent="CanvasLayer/Player1"]
+position = Vector2(2, 145)
+
+[node name="DR" type="Label" parent="CanvasLayer/Player1/Stats3"]
+offset_right = 127.0
+offset_bottom = 23.0
+text = "Desired rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats3/DR"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="DP" type="Label" parent="CanvasLayer/Player1/Stats3"]
+offset_left = 288.0
+offset_right = 415.0
+offset_bottom = 23.0
+text = "Desired pos"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats3/DP"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="R" type="Label" parent="CanvasLayer/Player1/Stats3"]
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats3/R"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="P" type="Label" parent="CanvasLayer/Player1/Stats3"]
+offset_left = 290.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 48.0
+text = "Position"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats3/P"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Stats4" type="Node2D" parent="CanvasLayer/Player1"]
+position = Vector2(3, 217)
+
+[node name="DR" type="Label" parent="CanvasLayer/Player1/Stats4"]
+offset_right = 127.0
+offset_bottom = 23.0
+text = "Desired rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats4/DR"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="DP" type="Label" parent="CanvasLayer/Player1/Stats4"]
+offset_left = 288.0
+offset_right = 415.0
+offset_bottom = 23.0
+text = "Desired pos"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats4/DP"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="R" type="Label" parent="CanvasLayer/Player1/Stats4"]
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats4/R"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="P" type="Label" parent="CanvasLayer/Player1/Stats4"]
+offset_left = 290.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 48.0
+text = "Position"
+
+[node name="value" type="Label" parent="CanvasLayer/Player1/Stats4/P"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Reward" type="Label" parent="CanvasLayer/Player1"]
+offset_left = 3.0
+offset_top = 285.0
+offset_right = 43.0
+offset_bottom = 308.0
+text = "Reward
+"
+
+[node name="Value" type="Label" parent="CanvasLayer/Player1/Reward"]
+offset_left = 138.0
+offset_right = 197.0
+offset_bottom = 23.0
+text = "0000"
+
+[node name="Player2" type="Node2D" parent="CanvasLayer"]
+position = Vector2(6, 1)
+
+[node name="Stats1" type="Node2D" parent="CanvasLayer/Player2"]
+
+[node name="DR" type="Label" parent="CanvasLayer/Player2/Stats1"]
+offset_right = 127.0
+offset_bottom = 23.0
+text = "Desired rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats1/DR"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="DP" type="Label" parent="CanvasLayer/Player2/Stats1"]
+offset_left = 288.0
+offset_right = 415.0
+offset_bottom = 23.0
+text = "Desired pos"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats1/DP"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="R" type="Label" parent="CanvasLayer/Player2/Stats1"]
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats1/R"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="P" type="Label" parent="CanvasLayer/Player2/Stats1"]
+offset_left = 290.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 48.0
+text = "Position"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats1/P"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Stats2" type="Node2D" parent="CanvasLayer/Player2"]
+position = Vector2(1, 69)
+
+[node name="DR" type="Label" parent="CanvasLayer/Player2/Stats2"]
+offset_right = 127.0
+offset_bottom = 23.0
+text = "Desired rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats2/DR"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="DP" type="Label" parent="CanvasLayer/Player2/Stats2"]
+offset_left = 288.0
+offset_right = 415.0
+offset_bottom = 23.0
+text = "Desired pos"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats2/DP"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="R" type="Label" parent="CanvasLayer/Player2/Stats2"]
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats2/R"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="P" type="Label" parent="CanvasLayer/Player2/Stats2"]
+offset_left = 290.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 48.0
+text = "Position"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats2/P"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Stats3" type="Node2D" parent="CanvasLayer/Player2"]
+position = Vector2(2, 145)
+
+[node name="DR" type="Label" parent="CanvasLayer/Player2/Stats3"]
+offset_right = 127.0
+offset_bottom = 23.0
+text = "Desired rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats3/DR"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="DP" type="Label" parent="CanvasLayer/Player2/Stats3"]
+offset_left = 288.0
+offset_right = 415.0
+offset_bottom = 23.0
+text = "Desired pos"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats3/DP"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="R" type="Label" parent="CanvasLayer/Player2/Stats3"]
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats3/R"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="P" type="Label" parent="CanvasLayer/Player2/Stats3"]
+offset_left = 290.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 48.0
+text = "Position"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats3/P"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Stats4" type="Node2D" parent="CanvasLayer/Player2"]
+position = Vector2(3, 217)
+
+[node name="DR" type="Label" parent="CanvasLayer/Player2/Stats4"]
+offset_right = 127.0
+offset_bottom = 23.0
+text = "Desired rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats4/DR"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="DP" type="Label" parent="CanvasLayer/Player2/Stats4"]
+offset_left = 288.0
+offset_right = 415.0
+offset_bottom = 23.0
+text = "Desired pos"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats4/DP"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="R" type="Label" parent="CanvasLayer/Player2/Stats4"]
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Rotation"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats4/R"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="P" type="Label" parent="CanvasLayer/Player2/Stats4"]
+offset_left = 290.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 48.0
+text = "Position"
+
+[node name="value" type="Label" parent="CanvasLayer/Player2/Stats4/P"]
+offset_left = 140.0
+offset_right = 267.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Reward" type="Label" parent="CanvasLayer/Player2"]
+offset_left = 3.0
+offset_top = 285.0
+offset_right = 43.0
+offset_bottom = 308.0
+text = "Reward
+"
+
+[node name="Value" type="Label" parent="CanvasLayer/Player2/Reward"]
+offset_left = 138.0
+offset_right = 197.0
+offset_bottom = 23.0
+text = "0000"
