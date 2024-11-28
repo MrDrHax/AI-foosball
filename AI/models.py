@@ -12,26 +12,25 @@ class FoosballModel(nn.Module):
         super(FoosballModel, self).__init__()
 
         # First convolutional layer: input (4x6) -> output (2x3)
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=(
-            2, 2), stride=(2, 2), padding=0)  # Output: (16, 2, 3)
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=128, kernel_size=(
+            2, 2), stride=(2, 2), padding=0)  # Output: (128 x 2 x 3)
 
         # Fully connected layers
-        # Flattened size: 32 * 2 * 3 = 192
-        self.fc1 = nn.Linear(32 * 2 * 3, 128)
+        self.fc1 = nn.Linear(128 * 6, 128)
         self.fc2 = nn.Linear(128, 64)
         self.fc3 = nn.Linear(64, 4 * 2)  # Final output size: 4 * 2
 
         # Flattened size: 32 * 2 * 3
-        self.fc_value = nn.Linear(32 * 2 * 3, 128)
+        self.fc_value = nn.Linear(128 * 6, 64)
         # Output a single value for the state
-        self.fc_value_out = nn.Linear(128, 1)
+        self.fc_value_out = nn.Linear(64, 1)
 
     def forward(self, x):
         # Input shape: (batch_size, 1, 4, 6)
         x = F.relu(self.conv1(x))  # Output shape: (batch_size, 32, 2, 3)
 
         # Flatten the output for the fully connected layers
-        x = x.view(x.size(0), -1)  # Flatten to (batch_size, 32 * 2 * 2)
+        x = x.flatten(1)  # Flatten to (batch_size, 32 * 2 * 3)
 
         # estimate values
         value = F.relu(self.fc_value(x))  # Output shape: (batch_size, 128)
@@ -107,11 +106,16 @@ class PPO:
                 batch_returns = returns[batch_indices]
 
                 # Get current policy and value estimates
-                current_values = self.model(batch_states)
-                current_action_probs = self.model(batch_states)
+                current_values, _ = self.model(batch_states)
+                current_action_probs, _ = self.model(batch_states)
 
                 # Calculate the ratio (pi_theta / pi_theta_old)
                 ratio = current_action_probs / (batch_actions + 1e-8)
+
+                batch_advantages = batch_advantages.reshape(
+                    self.batch_size, 1, 1)
+                batch_returns = batch_returns.reshape(
+                    self.batch_size, 1, 1)
 
                 # Calculate surrogate loss
                 surrogate_loss = ratio * batch_advantages
@@ -126,6 +130,15 @@ class PPO:
                 self.optimizer.zero_grad()
                 loss.backward()
                 self.optimizer.step()
+                print(loss)
 
         torch.save(self.model, f'saves/{self.runID}/{self.counter}')
         self.counter += 1
+
+
+if __name__ == "__main__":
+    model = FoosballModel()
+    # Example input with batch size 1, 1 channel, 4 height, 6 width
+    input_tensor = torch.randn(1, 1, 4, 6)
+    output = model(input_tensor)
+    print(output.shape)  # Output shape will be (1, 128)

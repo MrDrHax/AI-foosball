@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://p0x514pltcgb"]
+[gd_scene load_steps=27 format=3 uid="uid://p0x514pltcgb"]
 
 [ext_resource type="Script" path="res://script/BallInit.cs" id="1_3ouj3"]
 [ext_resource type="Script" path="res://script/GameMaster.cs" id="1_l0nc5"]
@@ -26,6 +26,13 @@ albedo_color = Color(0.388815, 0.251641, 0.0815951, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_leweu"]
 material = SubResource("StandardMaterial3D_ywdm1")
 size = Vector3(1.2, 0.1, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o0p0n"]
+albedo_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0adh1"]
+material = SubResource("StandardMaterial3D_o0p0n")
+size = Vector3(0.01, 0.1, 0.2)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ceom4"]
 absorbent = true
@@ -139,6 +146,16 @@ shape = SubResource("BoxShape3D_ths7s")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="field/RigidBody3D/CollisionShape3D5"]
 mesh = SubResource("BoxMesh_leweu")
 skeleton = NodePath("../../../..")
+
+[node name="Goal" type="MeshInstance3D" parent="field"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.589235, 0.1, 0)
+mesh = SubResource("BoxMesh_0adh1")
+skeleton = NodePath("")
+
+[node name="Goal3" type="MeshInstance3D" parent="field"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.586102, 0.1, 0)
+mesh = SubResource("BoxMesh_0adh1")
+skeleton = NodePath("")
 
 [node name="ball" type="Node3D" parent="." node_paths=PackedStringArray("physicsBody3D")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
@@ -748,6 +765,7 @@ offset_bottom = 23.0
 text = "Desired rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats1/DR"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -760,6 +778,7 @@ offset_bottom = 23.0
 text = "Desired pos"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats1/DP"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -772,6 +791,7 @@ offset_bottom = 53.0
 text = "Rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats1/R"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -785,6 +805,7 @@ offset_bottom = 48.0
 text = "Position"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats1/P"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -799,6 +820,7 @@ offset_bottom = 23.0
 text = "Desired rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats2/DR"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -811,6 +833,7 @@ offset_bottom = 23.0
 text = "Desired pos"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats2/DP"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -823,6 +846,7 @@ offset_bottom = 53.0
 text = "Rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats2/R"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -836,6 +860,7 @@ offset_bottom = 48.0
 text = "Position"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats2/P"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -850,6 +875,7 @@ offset_bottom = 23.0
 text = "Desired rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats3/DR"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -862,6 +888,7 @@ offset_bottom = 23.0
 text = "Desired pos"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats3/DP"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -874,6 +901,7 @@ offset_bottom = 53.0
 text = "Rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats3/R"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -887,6 +915,7 @@ offset_bottom = 48.0
 text = "Position"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats3/P"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -901,6 +930,7 @@ offset_bottom = 23.0
 text = "Desired rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats4/DR"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -913,6 +943,7 @@ offset_bottom = 23.0
 text = "Desired pos"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats4/DP"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -925,6 +956,7 @@ offset_bottom = 53.0
 text = "Rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats4/R"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -938,6 +970,7 @@ offset_bottom = 48.0
 text = "Position"
 
 [node name="value" type="Label" parent="CanvasLayer/Player1/Stats4/P"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -952,6 +985,7 @@ text = "Reward
 "
 
 [node name="Value" type="Label" parent="CanvasLayer/Player1/Reward"]
+layout_mode = 0
 offset_left = 138.0
 offset_right = 197.0
 offset_bottom = 23.0
@@ -968,6 +1002,7 @@ offset_bottom = 23.0
 text = "Desired rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats1/DR"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -980,6 +1015,7 @@ offset_bottom = 23.0
 text = "Desired pos"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats1/DP"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -992,6 +1028,7 @@ offset_bottom = 53.0
 text = "Rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats1/R"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1005,6 +1042,7 @@ offset_bottom = 48.0
 text = "Position"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats1/P"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1019,6 +1057,7 @@ offset_bottom = 23.0
 text = "Desired rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats2/DR"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1031,6 +1070,7 @@ offset_bottom = 23.0
 text = "Desired pos"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats2/DP"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1043,6 +1083,7 @@ offset_bottom = 53.0
 text = "Rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats2/R"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1056,6 +1097,7 @@ offset_bottom = 48.0
 text = "Position"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats2/P"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1070,6 +1112,7 @@ offset_bottom = 23.0
 text = "Desired rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats3/DR"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1082,6 +1125,7 @@ offset_bottom = 23.0
 text = "Desired pos"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats3/DP"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1094,6 +1138,7 @@ offset_bottom = 53.0
 text = "Rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats3/R"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1107,6 +1152,7 @@ offset_bottom = 48.0
 text = "Position"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats3/P"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1121,6 +1167,7 @@ offset_bottom = 23.0
 text = "Desired rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats4/DR"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1133,6 +1180,7 @@ offset_bottom = 23.0
 text = "Desired pos"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats4/DP"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1145,6 +1193,7 @@ offset_bottom = 53.0
 text = "Rotation"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats4/R"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1158,6 +1207,7 @@ offset_bottom = 48.0
 text = "Position"
 
 [node name="value" type="Label" parent="CanvasLayer/Player2/Stats4/P"]
+layout_mode = 0
 offset_left = 140.0
 offset_right = 267.0
 offset_bottom = 23.0
@@ -1172,7 +1222,10 @@ text = "Reward
 "
 
 [node name="Value" type="Label" parent="CanvasLayer/Player2/Reward"]
+layout_mode = 0
 offset_left = 138.0
 offset_right = 197.0
 offset_bottom = 23.0
 text = "0000"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

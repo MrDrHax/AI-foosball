@@ -40,11 +40,29 @@ public partial class BallInit : Node3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		if (physicsBody3D.LinearVelocity.Length() <= 0.001)
+		if (physicsBody3D.LinearVelocity.Length() <= 0.01)
 		{
 			resetBall();
 			penalized = true;
 		}
+
+		if (physicsBody3D.Position.X < -0.567f && physicsBody3D.Position.Z > -0.1f && physicsBody3D.Position.Z < 0.1f)
+		{
+			ScoreGoal(true);
+		}
+
+		if (physicsBody3D.Position.X > 0.567f && physicsBody3D.Position.Z > -0.1f && physicsBody3D.Position.Z < 0.1f)
+		{
+			ScoreGoal(false);
+		}
+	}
+
+	public void ScoreGoal(bool player1)
+	{
+		scored1 = player1;
+		scored2 = !player1;
+
+		resetBall();
 	}
 
 	public float getX(bool isPlayer1)
