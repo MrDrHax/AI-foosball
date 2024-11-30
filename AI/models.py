@@ -59,6 +59,9 @@ class PPO:
         if not os.path.exists(f'saves/{self.runID}/'):
             os.makedirs(f'saves/{self.runID}/')
 
+        with open(f'saves/{self.runID}/data.txt', 'x') as f:
+            f.write("loss\n")
+
     def compute_advantages(self, rewards, values):
         # Compute advantages using Generalized Advantage Estimation (GAE)
         advantages = np.zeros_like(rewards)
@@ -90,49 +93,51 @@ class PPO:
             (advantages.std() + 1e-8)
 
         # Training loop
-        for _ in range(self.epochs):
-            # Shuffle data
-            indices = np.arange(len(states))
-            np.random.shuffle(indices)
 
-            for start in range(0, len(states), self.batch_size):
-                end = start + self.batch_size
-                batch_indices = indices[start:end]
+        with open(f'saves/{self.runID}/data.txt', 'a') as f:
+            for _ in range(self.epochs):
+                # Shuffle data
+                indices = np.arange(len(states))
+                np.random.shuffle(indices)
 
-                # Get batch data
-                batch_states = states[batch_indices]
-                batch_actions = actions[batch_indices]
-                batch_advantages = advantages[batch_indices]
-                batch_returns = returns[batch_indices]
+                for start in range(0, len(states), self.batch_size):
+                    end = start + self.batch_size
+                    batch_indices = indices[start:end]
 
-                # Get current policy and value estimates
-                current_values, _ = self.model(batch_states)
-                current_action_probs, _ = self.model(batch_states)
+                    # Get batch data
+                    batch_states = states[batch_indices]
+                    batch_actions = actions[batch_indices]
+                    batch_advantages = advantages[batch_indices]
+                    batch_returns = returns[batch_indices]
 
-                # Calculate the ratio (pi_theta / pi_theta_old)
-                ratio = current_action_probs / (batch_actions + 1e-8)
+                    # Get current policy and value estimates
+                    current_action_probs, current_values = self.model(batch_states)
 
-                batch_advantages = batch_advantages.reshape(
-                    self.batch_size, 1, 1)
-                batch_returns = batch_returns.reshape(
-                    self.batch_size, 1, 1)
+                    # Calculate the ratio (pi_theta / pi_theta_old)
+                    ratio = current_action_probs / (batch_actions + 1e-8)
 
-                # Calculate surrogate loss
-                surrogate_loss = ratio * batch_advantages
-                clipped_surrogate_loss = torch.clamp(
-                    ratio, 1 - self.epsilon, 1 + self.epsilon) * batch_advantages
+                    batch_advantages = batch_advantages.reshape(
+                        self.batch_size, 1, 1)
+                    batch_returns = batch_returns.reshape(
+                        self.batch_size, 1, 1)
 
-                # Total loss
-                loss = -torch.min(surrogate_loss, clipped_surrogate_loss).mean() + \
-                    F.mse_loss(current_values, batch_returns)
+                    # Calculate surrogate loss
+                    surrogate_loss = ratio * batch_advantages
+                    clipped_surrogate_loss = torch.clamp(
+                        ratio, 1 - self.epsilon, 1 + self.epsilon) * batch_advantages
 
-                # Update model
-                self.optimizer.zero_grad()
-                loss.backward()
-                self.optimizer.step()
-                print(loss)
+                    # Total loss
+                    loss = -torch.min(surrogate_loss, clipped_surrogate_loss).mean() + \
+                        F.mse_loss(current_values, batch_returns)
+
+                    # Update model
+                    self.optimizer.zero_grad()
+                    loss.backward()
+                    self.optimizer.step()
+                    f.write(f'{loss.float()}\n')
 
         torch.save(self.model, f'saves/{self.runID}/{self.counter}')
+            
         self.counter += 1
 
 

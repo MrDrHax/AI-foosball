@@ -8,9 +8,12 @@ import torch
 from fastapi import BackgroundTasks
 
 model = models.FoosballModel()
+# model = torch.load("saves/9787b26b-fdbd-4f62-acea-77b91880aaa0/11223", weights_only=False)
 loss = models.PPO(model)
 
 model2 = models.FoosballModel()
+# model2 = torch.load(
+#     "saves/10589532-fdc5-459c-ae83-810bef35156c/11223", weights_only=False)
 loss2 = models.PPO(model2)
 
 app = fastapi.FastAPI()
